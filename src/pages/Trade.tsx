@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Search, ChevronLeft, ChevronRight, DollarSign } from "lucide-react";
+import Navbar from "../components/Navbar";
 
-// Dummy data remains the same
+// Dummy data
 const items = [
   {
     id: 1,
@@ -53,7 +54,7 @@ const items = [
   },
 ];
 
-const ITEMS_PER_PAGE = 4;
+const ITEMS_PER_PAGE = 10;
 const MIN_PRICE = 0;
 const MAX_PRICE = 500;
 
@@ -65,6 +66,7 @@ const Gallery = () => {
     max: MAX_PRICE,
   });
 
+  // Filter items based on search and price range
   const filteredItems = items.filter(
     (item) =>
       item.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
@@ -72,6 +74,7 @@ const Gallery = () => {
       item.price <= priceRange.max
   );
 
+  // Calculate pagination
   const totalPages = Math.ceil(filteredItems.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const paginatedItems = filteredItems.slice(
@@ -101,11 +104,12 @@ const Gallery = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#fff0d1] pt-16">
-      <div className="max-w-6xl mx-auto h-[calc(100vh-4rem)] flex flex-col">
-        {/* Sticky Filters */}
-        <div className="sticky top-0 bg-[#fff0d1] z-10 px-4 sm:px-6 lg:px-8 py-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+    <>
+      <Navbar></Navbar>
+      <div className="min-h-screen bg-[#fff0d1] py-12 pt-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto">
+          {/* Filters */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
             {/* Search Bar */}
             <div className="relative">
               <input
@@ -148,12 +152,9 @@ const Gallery = () => {
               />
             </div>
           </div>
-        </div>
 
-        {/* Scrollable Content Area */}
-        <div className="flex-1 overflow-y-auto px-4 sm:px-6 lg:px-8">
           {/* Gallery Items */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {paginatedItems.map((item) => (
               <div
                 key={item.id}
@@ -162,9 +163,9 @@ const Gallery = () => {
                 <img
                   src={item.image}
                   alt={item.name}
-                  className="w-full h-48 object-cover"
+                  className="w-full h-64 object-cover"
                 />
-                <div className="p-4">
+                <div className="p-6">
                   <div className="flex justify-between items-start mb-2">
                     <h3 className="text-xl font-semibold text-[#3b3030]">
                       {item.name}
@@ -181,7 +182,7 @@ const Gallery = () => {
 
           {/* Pagination */}
           {filteredItems.length > 0 && (
-            <div className="sticky bottom-0 mb-4 flex justify-between items-center px-4 py-3 bg-white rounded-lg shadow-md">
+            <div className="mt-8 flex justify-between items-center px-4 py-3 bg-white rounded-lg shadow-md">
               <button
                 onClick={handlePrevPage}
                 disabled={currentPage === 1}
@@ -211,7 +212,7 @@ const Gallery = () => {
           )}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

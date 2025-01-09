@@ -1,5 +1,7 @@
 // import React from "react";
 import { TextField, Button, Container, Typography, Box } from "@mui/material";
+import Logo1 from "../assets/logo1.png";
+import Logo2 from "../assets/logo2.png";
 
 const LoginPage = () => {
   return (
@@ -23,6 +25,25 @@ const LoginPage = () => {
           textAlign: "center",
         }}
       >
+        {/* Placeholder Image for Logo */}
+        <Box
+          sx={{
+            marginBottom: 2,
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <img
+            src={Logo1}
+            alt="Logo"
+            style={{
+              width: "100px",
+              height: "100px",
+              objectFit: "cover",
+              borderRadius: "50%",
+            }}
+          />
+        </Box>
         <Typography variant="h5" sx={{ color: "#3b3030", marginBottom: 2 }}>
           Admin Login
         </Typography>
