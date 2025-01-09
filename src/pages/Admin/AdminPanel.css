@@ -1,0 +1,65 @@
+.admin-panel {
+  background-color: #fff0d1;
+  color: #3b3030;
+  padding: 20px;
+  max-width: 600px;
+  margin: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.admin-panel h1 {
+  text-align: center;
+  color: #3b3030;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.image-dropzone {
+  border: 2px dashed #3b3030;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.image-dropzone img {
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+.image-dropzone.dragging {
+  background-color: rgba(59, 48, 48, 0.1);
+}
+
+input,
+textarea,
+button {
+  font-size: 16px;
+  padding: 10px;
+  border: 1px solid #3b3030;
+  border-radius: 5px;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: #3b3030;
+  box-shadow: 0 0 5px rgba(59, 48, 48, 0.3);
+}
+
+button {
+  background-color: #3b3030;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #2c2323;
+}

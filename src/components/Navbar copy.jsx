@@ -1,18 +1,13 @@
 import { useState } from "react";
 import { Menu } from "@mui/icons-material";
 import { Drawer, IconButton } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"; // Import Link
 
 function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [galleryMenuOpen, setGalleryMenuOpen] = useState(false); // For mobile Gallery submenu
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
-  };
-
-  const toggleGalleryMenu = () => {
-    setGalleryMenuOpen(!galleryMenuOpen);
   };
 
   return (
@@ -24,12 +19,7 @@ function Navbar() {
         </h1>
 
         {/* Desktop Menu */}
-        <ul className="hidden md:flex space-x-6 relative">
-          <li>
-            <Link to="/" className="hover:text-gray-300">
-              Home
-            </Link>
-          </li>
+        <ul className="hidden md:flex space-x-6">
           <li>
             <a href="#about" className="hover:text-gray-300">
               About
@@ -45,20 +35,11 @@ function Navbar() {
               Contact
             </a>
           </li>
-          <li className="relative group">
-            Gallery
-            {/* Submenu */}
-            <ul
-              className="absolute hidden group-hover:flex bg-[#3B3030] text-white mt-0 rounded-lg shadow-lg flex-col"
-              style={{ minWidth: "150px" }}
-            >
-              <li className="px-4 py-2 hover:bg-gray-600 transition duration-200">
-                <Link to="/gallery/trade">Trade</Link>
-              </li>
-              <li className="px-4 py-2 hover:bg-gray-600 transition duration-200">
-                <Link to="/gallery/events">Events</Link>
-              </li>
-            </ul>
+          <li>
+            {/* Updated Gallery link */}
+            <Link to="/gallery" className="hover:text-gray-300">
+              Gallery
+            </Link>
           </li>
         </ul>
 
@@ -99,34 +80,14 @@ function Navbar() {
           >
             Contact
           </a>
-          {/* Gallery submenu for mobile */}
-          <div>
-            <button
-              className="hover:text-gray-300 text-lg flex justify-between w-full"
-              onClick={toggleGalleryMenu}
-            >
-              Gallery
-              <span>{galleryMenuOpen ? "−" : "+"}</span>
-            </button>
-            {galleryMenuOpen && (
-              <div className="pl-4 space-y-2 mt-2">
-                <Link
-                  to="/gallery/photos"
-                  className="block hover:text-gray-300"
-                  onClick={toggleMobileMenu}
-                >
-                  Photos
-                </Link>
-                <Link
-                  to="/gallery/videos"
-                  className="block hover:text-gray-300"
-                  onClick={toggleMobileMenu}
-                >
-                  Videos
-                </Link>
-              </div>
-            )}
-          </div>
+          {/* Updated Gallery link */}
+          <Link
+            to="/gallery"
+            className="hover:text-gray-300 text-lg"
+            onClick={toggleMobileMenu}
+          >
+            Gallery
+          </Link>
         </div>
       </Drawer>
     </nav>

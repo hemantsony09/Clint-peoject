@@ -2,18 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 3px; /* Set scrollbar width */
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #FFF0D1; /* Track color */
+  background-color: #fff0d1; /* Track color */
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #3B3030; /* Thumb color */
+  background-color: #3b3030; /* Thumb color */
   border-radius: 10px; /* Optional: Rounded corners for the thumb */
 }
 
@@ -22,13 +21,17 @@
   background-color: #2a2525; /* Darker shade on hover */
 }
 .slick-dots li button::before {
-  color: #FFF; /* White color for dots */
+  color: #fff; /* White color for dots */
   font-size: 10px;
 }
 
 .slick-dots li.slick-active button::before {
-  color: #FFF; /* White color for the active dot */
+  color: #fff; /* White color for the active dot */
 }
-*{
+* {
   scroll-behavior: smooth;
+}
+* {
+  margin: 0;
+  padding: 0;
 }
