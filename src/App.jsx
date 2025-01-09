@@ -1,4 +1,3 @@
-// import React from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -6,6 +5,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import Sidebar from "./components/Sidebar.jsx";
+import ProductPage from "./components/ProductPage.jsx";
 import Homepage from "./pages/Homepage.jsx";
 import Trade from "./pages/Admin/Trade.jsx";
 import Event from "./pages/Admin/Event.jsx";
@@ -13,6 +13,12 @@ import Login from "./pages/Login.jsx";
 import ProductTable from "./pages/Admin/ProductTable.jsx";
 import TradeGallery from "./pages/Trade.tsx";
 import EventsGallery from "./pages/Events.tsx";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
+// Initialize AOS
+AOS.init();
+
 
 const AppLayout = () => {
   const location = useLocation();
@@ -43,7 +49,10 @@ const AppLayout = () => {
           paddingTop: isAdminRoute ? "15%" : "0",
         }}
       >
+    
         <Routes>
+        <Route path="/product/:id" element={<ProductPage />} />
+    
           <Route path="/" element={<Homepage />} />
           <Route path="/gallery/trade" element={<TradeGallery />} />
           <Route path="/gallery/events" element={<EventsGallery />} />

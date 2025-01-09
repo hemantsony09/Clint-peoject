@@ -16,7 +16,10 @@ const Homepage = () => {
       <Product></Product>
       <About></About>
       <Contact></Contact>
+      
       <Footer></Footer>
+
+      
     </>
   );
 };

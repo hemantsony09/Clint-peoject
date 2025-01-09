@@ -1,7 +1,10 @@
 import React from "react";
 import { Container, Grid, Card, CardMedia, CardContent, Typography, Box } from "@mui/material";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 function Product() {
+  const navigate = useNavigate(); // Initialize the navigate hook
+
   const projects = [
     {
       id: 1,
@@ -16,6 +19,11 @@ function Product() {
       image: "https://via.placeholder.com/600x400?text=Image+2", // Replace with actual image URL
     },
   ];
+
+  // Function to handle card click
+  const handleCardClick = (id) => {
+    navigate(`/product/${id}`); // Navigate to the specific product page using the product ID
+  };
 
   return (
     <Box id="portfolio" className="py-16 bg-[#3B3030]">
@@ -33,6 +41,7 @@ function Product() {
               <Card
                 className="group hover:shadow-xl transition-all duration-300 rounded-lg overflow-hidden bg-[#FFF0D1]" // Changed bg color to light
                 elevation={3}
+                onClick={() => handleCardClick(project.id)} // Trigger navigation on click
               >
                 <div className="relative overflow-hidden">
                   <CardMedia
