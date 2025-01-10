@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Menu } from "@mui/icons-material";
 import { Drawer, IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
+import Logo1 from "../assets/logo1.png";
 
 function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -18,10 +19,12 @@ function Navbar() {
   return (
     <nav className="bg-[#3B3030] text-white py-4 shadow-md fixed w-full z-10">
       <div className="container mx-auto flex justify-between items-center px-4">
-        {/* Logo */}
-        <h1 className="text-lg font-bold">
-          <a href="#home">Project</a>
-        </h1>
+        {/* Logo Placeholder */}
+        <div className="w-10 h-10 rounded-full flex items-center justify-center">
+          <span className="text-white font-bold"></span>
+          {/* Alternatively, use an <img> tag for an actual logo */}
+          <img src={Logo1} alt="Logo" className="w-10 h-10 rounded-full" />
+        </div>
 
         {/* Desktop Menu */}
         <ul className="hidden md:flex space-x-6 relative">

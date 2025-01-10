@@ -10,7 +10,8 @@ import Homepage from "./pages/Homepage.jsx";
 import Trade from "./pages/Admin/Trade.jsx";
 import Event from "./pages/Admin/Event.jsx";
 import Login from "./pages/Login.jsx";
-import ProductTable from "./pages/Admin/ProductTable.jsx";
+import ProductTableTrade from "./pages/Admin/ProductTableTrade.jsx";
+import ProductTableEvents from "./pages/Admin/ProductTableEvents.jsx";
 import TradeGallery from "./pages/Trade.tsx";
 import EventsGallery from "./pages/Events.tsx";
 import AOS from "aos";
@@ -19,7 +20,6 @@ import "aos/dist/aos.css";
 // Initialize AOS
 AOS.init();
 
-
 const AppLayout = () => {
   const location = useLocation();
 
@@ -27,7 +27,8 @@ const AppLayout = () => {
   const showSidebar =
     location.pathname === "/admin/trade" ||
     location.pathname === "/admin/event" ||
-    location.pathname === "/admin/producttable";
+    location.pathname === "/admin/producttable/trade" ||
+    location.pathname === "/admin/producttable/events";
 
   // Check if the current route is one of the admin routes
   const isAdminRoute =
@@ -35,7 +36,7 @@ const AppLayout = () => {
     location.pathname === "/admin/event";
 
   return (
-    <div style={{ display: "flex" }}>
+    <div style={{ display: "flex", backgroundColor: "#fff0d1" }}>
       {showSidebar && <Sidebar />}
       <main
         style={{
@@ -45,20 +46,26 @@ const AppLayout = () => {
           marginLeft: showSidebar ? 0 : 0,
           width: "100%",
           // Apply height and paddingTop only for admin routes
-          height: isAdminRoute ? "100vh" : "auto",
+          height: isAdminRoute ? "auto" : "100vh",
           paddingTop: isAdminRoute ? "15%" : "0",
         }}
       >
-    
         <Routes>
-        <Route path="/product/:id" element={<ProductPage />} />
-    
+          <Route path="/product/:id" element={<ProductPage />} />
+
           <Route path="/" element={<Homepage />} />
           <Route path="/gallery/trade" element={<TradeGallery />} />
           <Route path="/gallery/events" element={<EventsGallery />} />
 
           <Route path="/admin" element={<Login />} />
-          <Route path="/admin/producttable" element={<ProductTable />} />
+          <Route
+            path="/admin/producttable/trade"
+            element={<ProductTableTrade />}
+          />
+          <Route
+            path="/admin/producttable/events"
+            element={<ProductTableEvents />}
+          />
           <Route path="/admin/trade" element={<Trade />} />
           <Route path="/admin/event" element={<Event />} />
         </Routes>

@@ -1,9 +1,42 @@
-// import React from "react";
+import React, { useState } from "react";
 import { TextField, Button, Container, Typography, Box } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import Logo1 from "../assets/logo1.png";
 import Logo2 from "../assets/logo2.png";
 
 const LoginPage = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+
+    const credentials = {
+      username,
+      password,
+    };
+
+    try {
+      const response = await axios.post(
+        "https://decor-hub-backend.onrender.com/api/auth/admin-login",
+        credentials
+      );
+      const { token } = response.data;
+      localStorage.setItem("token", token);
+      navigate("/admin/trade"); // Redirect to /admin/trade on successful login
+    } catch (err) {
+      setError("Login failed. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <Container
       maxWidth="xs"
@@ -47,13 +80,15 @@ const LoginPage = () => {
         <Typography variant="h5" sx={{ color: "#3b3030", marginBottom: 2 }}>
           Admin Login
         </Typography>
-        <form>
+        <form onSubmit={handleLogin}>
           <Box sx={{ marginBottom: 2 }}>
             <TextField
               label="Username"
               variant="outlined"
               fullWidth
               required
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               sx={{
                 input: { color: "#3b3030", backgroundColor: "#fff" },
                 "& .MuiOutlinedInput-root": {
@@ -77,6 +112,8 @@ const LoginPage = () => {
               variant="outlined"
               fullWidth
               required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               sx={{
                 input: { color: "#3b3030", backgroundColor: "#fff" },
                 "& .MuiOutlinedInput-root": {
@@ -93,6 +130,7 @@ const LoginPage = () => {
               }}
             />
           </Box>
+          {error && <Typography color="error">{error}</Typography>}
           <Button
             type="submit"
             variant="contained"
@@ -104,8 +142,9 @@ const LoginPage = () => {
                 backgroundColor: "#2e2626",
               },
             }}
+            disabled={loading}
           >
-            Login
+            {loading ? "Logging In..." : "Login"}
           </Button>
         </form>
       </Box>

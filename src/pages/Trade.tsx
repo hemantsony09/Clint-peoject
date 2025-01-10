@@ -1,70 +1,44 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Search, ChevronLeft, ChevronRight, DollarSign } from "lucide-react";
 import Navbar from "../components/Navbar";
-
-// Dummy data
-const items = [
-  {
-    id: 1,
-    name: "Vintage Camera",
-    price: 299.99,
-    description: "Classic analog camera perfect for photography enthusiasts",
-    image:
-      "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=500&h=400&fit=crop",
-  },
-  {
-    id: 2,
-    name: "Leather Messenger Bag",
-    price: 159.99,
-    description: "Handcrafted genuine leather bag for everyday use",
-    image:
-      "https://images.unsplash.com/photo-1547949003-9792a18a2601?w=500&h=400&fit=crop",
-  },
-  {
-    id: 3,
-    name: "Mechanical Watch",
-    price: 449.99,
-    description: "Elegant timepiece with automatic movement",
-    image:
-      "https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=500&h=400&fit=crop",
-  },
-  {
-    id: 4,
-    name: "Ceramic Vase",
-    price: 79.99,
-    description: "Hand-painted ceramic vase for modern homes",
-    image:
-      "https://images.unsplash.com/photo-1578500494198-246f612d3b3d?w=500&h=400&fit=crop",
-  },
-  {
-    id: 5,
-    name: "Wooden Desk Lamp",
-    price: 129.99,
-    description: "Adjustable wooden lamp with warm lighting",
-    image:
-      "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=500&h=400&fit=crop",
-  },
-  {
-    id: 6,
-    name: "Artisan Coffee Maker",
-    price: 189.99,
-    description: "Pour-over coffee maker for the perfect brew",
-    image:
-      "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=500&h=400&fit=crop",
-  },
-];
 
 const ITEMS_PER_PAGE = 10;
 const MIN_PRICE = 0;
 const MAX_PRICE = 500;
 
 const Gallery = () => {
+  const [items, setItems] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [priceRange, setPriceRange] = useState({
     min: MIN_PRICE,
     max: MAX_PRICE,
   });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  // Fetch products from the API
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch(
+          "https://decor-hub-backend.onrender.com/api/trade-products"
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch products");
+        }
+        const data = await response.json();
+        setItems(data || []); // Assuming the API response includes a `products` field
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   // Filter items based on search and price range
   const filteredItems = items.filter(
@@ -102,6 +76,20 @@ const Gallery = () => {
       setCurrentPage(1);
     }
   };
+
+  if (loading) {
+    return (
+      <div className="text-center py-8 text-[#3b3030]">Loading products...</div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="text-center py-8 text-red-600">
+        Error: {error}. Please try again later.
+      </div>
+    );
+  }
 
   return (
     <>

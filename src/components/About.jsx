@@ -3,30 +3,70 @@ import { Container, Typography, Box } from "@mui/material";
 
 function About() {
   return (
-    <Box id="about" className="py-16 bg-[#FFF0D1]">
-      <Container maxWidth="md" className="text-center px-4">
+    <Box
+      id="about"
+      sx={{
+        py: 10,
+        backgroundColor: "#FFF0D1",
+        textAlign: "center",
+      }}
+    >
+      <Container maxWidth="md">
+        {/* Section Title */}
         <Typography
-          variant="h4"
+          variant="h3"
           component="h2"
-          className="font-bold mb-4 text-[#3B3030]"
+          sx={{
+            fontWeight: "bold",
+            color: "#3B3030",
+            mb: 4,
+            textTransform: "uppercase",
+            letterSpacing: "2px",
+          }}
         >
-          About Project
+          About the Project
         </Typography>
+
+        {/* Subtitle */}
+        <Typography
+          variant="h6"
+          sx={{
+            color: "#3B3030",
+            mb: 3,
+            fontStyle: "italic",
+          }}
+        >
+          Elevating Innovation, One Step at a Time
+        </Typography>
+
+        {/* Description */}
         <Typography
           variant="body1"
-          className="text-[#3B3030] text-lg mb-4"
-        >
-          Lorem ipsum dolor sit.
-        </Typography>
-        <Typography
-          variant="body2"
-          className="text-[#3B3030] leading-relaxed"
+          sx={{
+            color: "#3B3030",
+            lineHeight: 1.8,
+            mb: 2,
+          }}
         >
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque
           iste repellendus, excepturi quaerat in repudiandae commodi? Inventore,
           minus. Veniam et velit corporis, reprehenderit aliquam a beatae
           obcaecati architecto incidunt minus commodi omnis placeat nostrum!
           Delectus inventore provident eligendi iusto velit.
+        </Typography>
+
+        {/* Additional Description */}
+        <Typography
+          variant="body2"
+          sx={{
+            color: "#6B5B5B",
+            lineHeight: 1.7,
+            mt: 2,
+          }}
+        >
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia sunt
+          pariatur temporibus sapiente, at quo molestiae! Nihil delectus
+          corrupti nobis!
         </Typography>
       </Container>
     </Box>
