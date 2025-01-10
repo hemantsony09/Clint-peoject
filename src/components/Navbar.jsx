@@ -34,9 +34,9 @@ function Navbar() {
             </Link>
           </li>
           <li>
-            <a href="#about" className="hover:text-gray-300">
+            <Link to="/#about" className="hover:text-gray-300">
               About
-            </a>
+            </Link>
           </li>
           <li>
             <a href="#portfolio" className="hover:text-gray-300">
@@ -81,27 +81,34 @@ function Navbar() {
         PaperProps={{ className: "bg-[#3B3030] text-white" }}
       >
         <div className="w-64 flex flex-col space-y-4 p-4">
-          <a
-            href="#about"
+          <Link
+            to="/#"
+            className="hover:text-gray-300 text-lg"
+            onClick={toggleMobileMenu}
+          >
+            Home
+          </Link>
+          <Link
+            to="/#about"
             className="hover:text-gray-300 text-lg"
             onClick={toggleMobileMenu}
           >
             About
-          </a>
-          <a
-            href="#portfolio"
+          </Link>
+          <Link
+            to="/#portfolio"
             className="hover:text-gray-300 text-lg"
             onClick={toggleMobileMenu}
           >
             Portfolio
-          </a>
-          <a
-            href="#contact"
+          </Link>
+          <Link
+            to="/#contact"
             className="hover:text-gray-300 text-lg"
             onClick={toggleMobileMenu}
           >
             Contact
-          </a>
+          </Link>
           {/* Gallery submenu for mobile */}
           <div>
             <button
@@ -114,18 +121,18 @@ function Navbar() {
             {galleryMenuOpen && (
               <div className="pl-4 space-y-2 mt-2">
                 <Link
-                  to="/gallery/photos"
+                  to="/gallery/trade"
                   className="block hover:text-gray-300"
                   onClick={toggleMobileMenu}
                 >
-                  Photos
+                  Trade
                 </Link>
                 <Link
-                  to="/gallery/videos"
+                  to="/gallery/events"
                   className="block hover:text-gray-300"
                   onClick={toggleMobileMenu}
                 >
-                  Videos
+                  Events
                 </Link>
               </div>
             )}

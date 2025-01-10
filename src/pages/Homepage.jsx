@@ -6,8 +6,10 @@ import Product from "../components/Product";
 import Contact from "../components/Contact";
 import Footer from "../components/Footer";
 import ImageCorousel from "../components/ImageCarousel";
+import { useLocation } from "react-router-dom";
 
 const Homepage = () => {
+  const location = useLocation();
   const [showButton, setShowButton] = useState(false);
 
   // Show button when the page is scrolled down
@@ -23,6 +25,14 @@ const Homepage = () => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+  useEffect(() => {
+    if (location.hash) {
+      const element = document.querySelector(location.hash);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [location]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);

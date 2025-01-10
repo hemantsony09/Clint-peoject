@@ -4,6 +4,7 @@ import {
   Route,
   useLocation,
 } from "react-router-dom";
+import PrivateRoute from "./components/PrivateRoute";
 import Sidebar from "./components/Sidebar.jsx";
 import ProductPage from "./components/ProductPage.jsx";
 import Homepage from "./pages/Homepage.jsx";
@@ -52,22 +53,43 @@ const AppLayout = () => {
       >
         <Routes>
           <Route path="/product/:id" element={<ProductPage />} />
-
           <Route path="/" element={<Homepage />} />
           <Route path="/gallery/trade" element={<TradeGallery />} />
           <Route path="/gallery/events" element={<EventsGallery />} />
-
           <Route path="/admin" element={<Login />} />
+          {/* Private Routes */}
           <Route
             path="/admin/producttable/trade"
-            element={<ProductTableTrade />}
+            element={
+              <PrivateRoute>
+                <ProductTableTrade />
+              </PrivateRoute>
+            }
           />
           <Route
             path="/admin/producttable/events"
-            element={<ProductTableEvents />}
+            element={
+              <PrivateRoute>
+                <ProductTableEvents />
+              </PrivateRoute>
+            }
           />
-          <Route path="/admin/trade" element={<Trade />} />
-          <Route path="/admin/event" element={<Event />} />
+          <Route
+            path="/admin/trade"
+            element={
+              <PrivateRoute>
+                <Trade />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/admin/event"
+            element={
+              <PrivateRoute>
+                <Event />
+              </PrivateRoute>
+            }
+          />
         </Routes>
       </main>
     </div>
