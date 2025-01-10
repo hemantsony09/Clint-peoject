@@ -77,11 +77,13 @@ const Gallery = () => {
     }
   };
 
-  if (loading) {
+  if (loading)
     return (
-      <div className="text-center py-8 text-[#3b3030]">Loading products...</div>
+      <div className="loading-container">
+        <div className="spinner"></div>
+        <p>Loading products...</p>
+      </div>
     );
-  }
 
   if (error) {
     return (
