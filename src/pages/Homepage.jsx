@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 import HomePage from "../components/HomePage";
 import About from "../components/About";
 import Product from "../components/Product";
-import Contact from "../components/Contact";
+import FeedbackForm from "../components/FeedbackForm";
 import Footer from "../components/Footer";
 import ImageCorousel from "../components/ImageCarousel";
 import { useLocation } from "react-router-dom";
@@ -48,7 +48,7 @@ const Homepage = () => {
       <ImageCorousel />
       <Product />
       <About />
-      <Contact />
+      <FeedbackForm />
       <Footer />
 
       {showButton && (
@@ -61,8 +61,9 @@ const Homepage = () => {
             backgroundColor: "#3B3030",
             color: "#fff0d1",
             border: "none",
+            width:"50px",
+            height:"50px",
             borderRadius: "50%",
-            padding: "10px 15px",
             fontSize: "18px",
             cursor: "pointer",
             boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",

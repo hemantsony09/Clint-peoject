@@ -29,13 +29,8 @@ function Navbar() {
         {/* Desktop Menu */}
         <ul className="hidden md:flex space-x-6 relative">
           <li>
-            <Link to="/" className="hover:text-gray-300">
+            <Link to="#home" className="hover:text-gray-300">
               Home
-            </Link>
-          </li>
-          <li>
-            <Link to="/#about" className="hover:text-gray-300">
-              About
             </Link>
           </li>
           <li>
@@ -44,8 +39,13 @@ function Navbar() {
             </a>
           </li>
           <li>
-            <a href="#contact" className="hover:text-gray-300">
-              Contact
+            <Link to="#about" className="hover:text-gray-300">
+              About
+            </Link>
+          </li>
+          <li>
+            <a href="#feedback" className="hover:text-gray-300">
+              Feedback
             </a>
           </li>
           <li className="relative group">

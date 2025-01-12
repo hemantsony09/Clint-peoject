@@ -1,4 +1,3 @@
-import React from "react";
 
 function HomePage() {
   return (
@@ -8,15 +7,12 @@ function HomePage() {
     >
       <div className="text-center text-[#3B3030]">
         {/* Animated Heading */}
-        <h1 className="text-4xl font-bold mb-4 animate-fade-in">Project</h1>
+        <h1 className="text-4xl font-bold mb-4 animate-fade-in">DECOR HUB</h1>
 
         {/* Animated Paragraph */}
-        <p className="text-lg mb-8 max-w-[900px] animate-fade-in delay-200">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Libero
-          cumque atque quis asperiores? Obcaecati sapiente unde minus? Porro,
-          blanditiis officiis ipsam reprehenderit provident quibusdam amet.
-          Quisquam perferendis voluptatibus eum id.
-        </p>
+        <p className="text-lg mb-8 max-w-[900px] p-4 animate-fade-in delay-200">
+        At DECOR HUB, we believe that every event deserves to be celebrated with style and flair. We are a team of passionate event decorators with years of experience in transforming spaces into magical settings.
+</p>
 
         {/* Animated Button */}
         <a

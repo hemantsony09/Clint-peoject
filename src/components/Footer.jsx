@@ -45,13 +45,19 @@ const Footer = () => {
             Contact Us
           </Typography>
           <Typography variant="body1" sx={{ mb: 0.5 }}>
-            Address: 1234 Professional Avenue, Business City, BC 12345
+          Visit Us In-Store : Decor Hub
+            86 A Shakti Nagar, Gopalpura Bypass,
+            Jaipur, Rajasthan (302015)
+
+          </Typography>
+          <Typography variant="body1" sx={{ mb: 0.5,mt:3 }}>
+          Contact Us Online
           </Typography>
           <Typography variant="body1" sx={{ mb: 0.5 }}>
-            Mobile: +1 (123) 456-7890
+            Mobile: +91-9314876441, +91-7062502925
           </Typography>
           <Typography variant="body1" sx={{ mb: 1 }}>
-            Email: contact@yourdomain.com
+            Email: decorhubjpr@gmail.com
           </Typography>
         </Box>
 
