@@ -39,13 +39,13 @@ const aboutContent = {
 
 const theme = createTheme({
   palette: {
-    mode: "dark", // Enables dark mode
+    mode: "light",
     background: {
-      default: "#3B3030", // Dark background
+      default: "#FFF0D1",
     },
     text: {
-      primary: "#FFF0D1", // Light text
-      secondary: "#FFF0D1", // Slightly dimmed text
+      primary: "#3B3030",
+      secondary: "#3B3030",
     },
   },
   typography: {
@@ -64,7 +64,6 @@ function About() {
         }}
       >
         <Container maxWidth="md">
-          {/* Section Title */}
           <Typography
             variant="h3"
             component="h2"
@@ -80,7 +79,6 @@ function About() {
             {aboutContent.title}
           </Typography>
 
-          {/* Subtitle */}
           <Typography
             variant="h6"
             sx={{
@@ -93,7 +91,6 @@ function About() {
             {aboutContent.subtitle}
           </Typography>
 
-          {/* Description */}
           {aboutContent.description.map((text, index) => (
             <Typography
               key={`description-${index}`}
@@ -109,7 +106,6 @@ function About() {
             </Typography>
           ))}
 
-          {/* Services */}
           <Box sx={{ textAlign: "left", mt: 4 }}>
             {aboutContent.services.map((service, index) => (
               <Box key={`service-${index}`} sx={{ mb: 3 }}>
@@ -136,7 +132,6 @@ function About() {
             ))}
           </Box>
 
-          {/* Additional Description */}
           {aboutContent.additionalInfo && (
             <Typography
               variant="body2"

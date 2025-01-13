@@ -58,3 +58,10 @@ html {
     transform: rotate(360deg);
   }
 }
+/* Carousel Dots Customization */
+.slick-dots.custom-dots {
+  bottom: -30px;
+}
+.slick-dots.custom-dots li button::before {
+  display: none;
+}

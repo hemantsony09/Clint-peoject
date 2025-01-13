@@ -23,32 +23,32 @@ function Navbar() {
         <div className="w-10 h-10 rounded-full flex items-center justify-center">
           <span className="text-white font-bold"></span>
           {/* Alternatively, use an <img> tag for an actual logo */}
-          <img src={Logo1} alt="Logo" className="w-10 h-10 rounded-full" />
+          <img src={Logo1} alt="Logo" className="w-14 h-14 max-w-[400px] rounded-full" />
         </div>
 
         {/* Desktop Menu */}
         <ul className="hidden md:flex space-x-6 relative">
           <li>
-            <Link to="#home" className="hover:text-gray-300">
+            <Link to="/#home" className="hover:text-gray-300">
               Home
             </Link>
           </li>
           <li>
-            <a href="#portfolio" className="hover:text-gray-300">
+            <a href="/#portfolio" className="hover:text-gray-300">
               Project
             </a>
           </li>
           <li>
-            <Link to="#about" className="hover:text-gray-300">
+            <Link to="/#about" className="hover:text-gray-300">
               About
             </Link>
           </li>
           <li>
-            <a href="#feedback" className="hover:text-gray-300">
+            <a href="/#feedback" className="hover:text-gray-300">
               Feedback
             </a>
           </li>
-          <li className="relative group">
+          <li className="relative pr-24 group">
             Gallery
             {/* Submenu */}
             <ul

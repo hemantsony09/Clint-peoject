@@ -3,6 +3,16 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+const CustomArrow = ({ className, style, onClick, direction }) => (
+  <button
+    className={`${className} text-[#FFF0D1] bg-[#3B3030] hover:bg-[#4C3A3A] shadow-md rounded-full`}
+    style={{ ...style, zIndex: 2 }}
+    onClick={onClick}
+  >
+    {direction === "next" ? "▶" : "◀"}
+  </button>
+);
+
 const ImageCarousel = () => {
   const settings = {
     dots: true,
@@ -28,6 +38,15 @@ const ImageCarousel = () => {
         },
       },
     ],
+    dotsClass: "slick-dots custom-dots",
+    customPaging: (i) => (
+      <div
+        className="w-3 h-3 rounded-full bg-[#FFF0D1] opacity-70 hover:opacity-100"
+        style={{ cursor: "pointer" }}
+      ></div>
+    ),
+    prevArrow: <CustomArrow direction="prev" />,
+    nextArrow: <CustomArrow direction="next" />,
   };
 
   const images = [

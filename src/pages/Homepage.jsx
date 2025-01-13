@@ -46,7 +46,7 @@ const Homepage = () => {
       <Navbar />
       <HomePage />
       <ImageCorousel />
-      {/* <Product /> */}
+      <Product />
       <About />
       <FeedbackForm />
       <Footer />
