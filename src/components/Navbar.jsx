@@ -94,6 +94,13 @@ function Navbar() {
             Home
           </Link>
           <Link
+            to="/#portfolio"
+            className="hover:text-gray-300 text-lg"
+            onClick={toggleMobileMenu}
+          >
+            Project
+          </Link>
+          <Link
             to="/#about"
             className="hover:text-gray-300 text-lg"
             onClick={toggleMobileMenu}
@@ -101,11 +108,11 @@ function Navbar() {
             About
           </Link>
           <Link
-            to="/#portfolio"
+            to="/#Feedbackt"
             className="hover:text-gray-300 text-lg"
             onClick={toggleMobileMenu}
           >
-            Portfolio
+            Feedback
           </Link>
           <Link
             to="/#contact"
