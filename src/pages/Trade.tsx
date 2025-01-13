@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Search, ChevronLeft, ChevronRight, DollarSign } from "lucide-react";
+import { Search, ChevronLeft, ChevronRight, IndianRupee } from "lucide-react";
 import Navbar from "../components/Navbar";
 
 const ITEMS_PER_PAGE = 10;
 const MIN_PRICE = 0;
-const MAX_PRICE = 500;
+const MAX_PRICE = 2000;
 
 const Gallery = () => {
   const [items, setItems] = useState([]);
@@ -14,10 +14,10 @@ const Gallery = () => {
     min: MIN_PRICE,
     max: MAX_PRICE,
   });
+  const [sortOrder, setSortOrder] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // Fetch products from the API
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
@@ -29,7 +29,7 @@ const Gallery = () => {
           throw new Error("Failed to fetch products");
         }
         const data = await response.json();
-        setItems(data || []); // Assuming the API response includes a `products` field
+        setItems(data || []);
         setLoading(false);
       } catch (err) {
         setError(err.message);
@@ -40,15 +40,19 @@ const Gallery = () => {
     fetchProducts();
   }, []);
 
-  // Filter items based on search and price range
-  const filteredItems = items.filter(
-    (item) =>
-      item.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-      item.price >= priceRange.min &&
-      item.price <= priceRange.max
-  );
+  const filteredItems = items
+    .filter(
+      (item) =>
+        item.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+        item.price >= priceRange.min &&
+        item.price <= priceRange.max
+    )
+    .sort((a, b) => {
+      if (sortOrder === "low-to-high") return a.price - b.price;
+      if (sortOrder === "high-to-low") return b.price - a.price;
+      return 0;
+    });
 
-  // Calculate pagination
   const totalPages = Math.ceil(filteredItems.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const paginatedItems = filteredItems.slice(
@@ -64,7 +68,7 @@ const Gallery = () => {
     setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   };
 
-  const handlePriceChange = (type: "min" | "max", value: string) => {
+  const handlePriceChange = (type, value) => {
     const numValue =
       value === "" ? (type === "min" ? MIN_PRICE : MAX_PRICE) : Number(value);
 
@@ -95,53 +99,78 @@ const Gallery = () => {
 
   return (
     <>
-      <Navbar></Navbar>
+      <Navbar />
       <div className="min-h-screen bg-[#fff0d1] py-12 pt-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           {/* Filters */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-            {/* Search Bar */}
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Search items..."
-                value={searchTerm}
-                onChange={(e) => {
-                  setSearchTerm(e.target.value);
-                  setCurrentPage(1);
-                }}
-                className="w-full pl-12 pr-4 py-3 rounded-lg bg-white shadow-md focus:outline-none focus:ring-2 focus:ring-[#3b3030] transition-all"
-              />
-              <Search
-                className="absolute left-4 top-3.5 text-[#3b3030]"
-                size={20}
-              />
-            </div>
+<div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-8">
+  {/* Search Bar */}
+  <div className="relative flex-1">
+    <input
+      type="text"
+      placeholder="Search items..."
+      value={searchTerm}
+      onChange={(e) => {
+        setSearchTerm(e.target.value);
+        setCurrentPage(1);
+      }}
+      className="w-full border-none h-12 pl-12 pr-4 rounded-lg bg-white shadow-md focus:outline-none focus:ring-2 focus:ring-[#3b3030] transition-all"
+    />
+    <Search
+      className="absolute left-4 top-3.5 text-[#3b3030]"
+      size={20}
+    />
+  </div>
 
-            {/* Price Range Filter */}
-            <div className="bg-white rounded-lg shadow-md p-3 flex items-center gap-3">
-              <DollarSign className="text-[#3b3030]" size={20} />
-              <input
-                type="number"
-                min={MIN_PRICE}
-                max={priceRange.max}
-                value={priceRange.min}
-                onChange={(e) => handlePriceChange("min", e.target.value)}
-                placeholder="Min price"
-                className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#3b3030] transition-all"
-              />
-              <span className="text-[#3b3030] font-medium">to</span>
-              <input
-                type="number"
-                min={priceRange.min}
-                max={MAX_PRICE}
-                value={priceRange.max}
-                onChange={(e) => handlePriceChange("max", e.target.value)}
-                placeholder="Max price"
-                className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#3b3030] transition-all"
-              />
-            </div>
-          </div>
+  {/* Price Range Filter */}
+  <div className="flex-1 bg-white shadow-md rounded-lg flex items-center h-12 px-4">
+    <span className="text-[#3b3030] font-medium">Price Range:</span>
+    <div className="flex items-center gap-3 ml-4">
+      <div className="flex items-center gap-1">
+        <IndianRupee className="text-[#3b3030]" size={20} />
+        <input
+          type="number"
+          min={MIN_PRICE}
+          max={priceRange.max}
+          value={priceRange.min}
+          onChange={(e) => handlePriceChange("min", e.target.value)}
+          placeholder="Min"
+          className="w-20 px-3 py-2 bg-white border-none shadow-inner rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3b3030] transition-all h-8"
+        />
+      </div>
+      <span className="text-[#3b3030] font-medium">to</span>
+      <div className="flex items-center gap-1">
+        <IndianRupee className="text-[#3b3030]" size={20} />
+        <input
+          type="number"
+          min={priceRange.min}
+          max={MAX_PRICE}
+          value={priceRange.max}
+          onChange={(e) => handlePriceChange("max", e.target.value)}
+          placeholder="Max"
+          className="w-20 px-3 py-2 bg-white border-none shadow-inner rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3b3030] transition-all h-8"
+        />
+      </div>
+    </div>
+  </div>
+
+  {/* Sort Dropdown */}
+  <div className="flex-1">
+    <select
+      value={sortOrder}
+      onChange={(e) => {
+        setSortOrder(e.target.value);
+        setCurrentPage(1);
+      }}
+      className="w-full px-4 py-3 h-12 bg-white shadow-md border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3b3030] transition-all"
+    >
+      <option value="">Sort By</option>
+      <option value="low-to-high">Price: Low to High</option>
+      <option value="high-to-low">Price: High to Low</option>
+    </select>
+  </div>
+</div>
+
 
           {/* Gallery Items */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -161,7 +190,7 @@ const Gallery = () => {
                       {item.name}
                     </h3>
                     <span className="text-lg font-bold text-[#3b3030]">
-                      ${item.price.toFixed(2)}
+                      ₹{item.price.toFixed(2)}
                     </span>
                   </div>
                   <p className="text-gray-600">{item.description}</p>
@@ -176,7 +205,7 @@ const Gallery = () => {
               <button
                 onClick={handlePrevPage}
                 disabled={currentPage === 1}
-                className="flex items-center text-[#3b3030] disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#fff0d1] px-3 py-1 rounded transition-colors"
+                className="flex items-center bg-[#fff0d1] text-[#3b3030] disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#fff0d1] px-3 py-1 rounded transition-colors"
               >
                 <ChevronLeft size={20} className="mr-1" />
                 Previous
@@ -187,7 +216,7 @@ const Gallery = () => {
               <button
                 onClick={handleNextPage}
                 disabled={currentPage === totalPages}
-                className="flex items-center text-[#3b3030] disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#fff0d1] px-3 py-1 rounded transition-colors"
+                className="flex items-center bg-[#fff0d1] text-[#3b3030] disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#fff0d1] px-3 py-1 rounded transition-colors"
               >
                 Next
                 <ChevronRight size={20} className="ml-1" />
@@ -207,3 +236,4 @@ const Gallery = () => {
 };
 
 export default Gallery;
+

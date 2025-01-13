@@ -176,7 +176,7 @@ const Gallery = () => {
               <button
                 onClick={handlePrevPage}
                 disabled={currentPage === 1}
-                className="flex items-center text-[#3b3030] disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#fff0d1] px-3 py-1 rounded transition-colors"
+                className="flex items-center bg-[#fff0d1] text-[#3b3030] disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#fff0d1] px-3 py-1 rounded transition-colors"
               >
                 <ChevronLeft size={20} className="mr-1" />
                 Previous
@@ -187,7 +187,7 @@ const Gallery = () => {
               <button
                 onClick={handleNextPage}
                 disabled={currentPage === totalPages}
-                className="flex items-center text-[#3b3030] disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#fff0d1] px-3 py-1 rounded transition-colors"
+                className="flex items-center bg-[#fff0d1] text-[#3b3030] disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#fff0d1] px-3 py-1 rounded transition-colors"
               >
                 Next
                 <ChevronRight size={20} className="ml-1" />
