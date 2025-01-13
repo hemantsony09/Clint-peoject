@@ -11,6 +11,7 @@ AOS.init({
 const Footer = () => {
   return (
     <Box
+    id='contact'
       sx={{
         backgroundColor: "#3b3030",
         color: "#fff0d1",

@@ -48,7 +48,7 @@ function Navbar() {
               Feedback
             </a>
           </li>
-          <li className="relative pr-24 group">
+          <li className="relative  group">
             Gallery
             {/* Submenu */}
             <ul
@@ -62,6 +62,11 @@ function Navbar() {
                 <Link to="/gallery/events">Events</Link>
               </li>
             </ul>
+          </li>
+          <li>
+            <a href="/#contact" className= "pr-24 hover:text-gray-300">
+            Contact
+            </a>
           </li>
         </ul>
 
