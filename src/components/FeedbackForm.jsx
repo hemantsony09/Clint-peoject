@@ -5,29 +5,26 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#3B3030", 
+      main: "#3B3030",
     },
     secondary: {
-      main: "#FFF0D1", 
+      main: "#FFF0D1",
     },
   },
 });
 
 function FeedbackForm() {
-  const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (email && message) {
-      // Construct the mailto link
-      const mailtoLink = `mailto:support@example.com?subject=Feedback&body=From: ${email}%0D%0A%0D%0A${encodeURIComponent(
+    if (message) {
+      const mailtoLink = `mailto:support@example.com?subject=Feedback&body=${encodeURIComponent(
         message
       )}`;
-      // Redirect to mailto link
       window.location.href = mailtoLink;
     } else {
-      alert("Please fill in all fields before submitting.");
+      alert("Please enter your message before submitting.");
     }
   };
 
@@ -35,7 +32,6 @@ function FeedbackForm() {
     <ThemeProvider theme={theme}>
       <Box id="feedback" sx={{ py: 10, backgroundColor: theme.palette.secondary.main }}>
         <Container maxWidth="md">
-          {/* Header */}
           <Typography
             variant="h4"
             component="h2"
@@ -60,35 +56,7 @@ function FeedbackForm() {
             an order, or simply want to share your feedback, we're here to help.
           </Typography>
 
-          {/* Feedback Form */}
           <form onSubmit={handleSubmit} className="max-w-lg mx-auto space-y-4">
-            <TextField
-              fullWidth
-              label="Your Email"
-              variant="outlined"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: theme.palette.primary.main,
-                  },
-                  "&:hover fieldset": {
-                    borderColor: theme.palette.primary.main,
-                  },
-                  "&.Mui-focused fieldset": {
-                    borderColor: theme.palette.primary.main,
-                  },
-                },
-                "& .MuiInputLabel-root": {
-                  color: theme.palette.primary.main,
-                  "&.Mui-focused": {
-                    color: theme.palette.primary.main,
-                  },
-                },
-              }}
-            />
             <TextField
               fullWidth
               label="Your Message"
