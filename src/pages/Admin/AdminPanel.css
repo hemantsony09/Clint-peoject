@@ -11,6 +11,7 @@
 .admin-panel h1 {
   text-align: center;
   color: #3b3030;
+  font-size: 2rem; /* Enlarged title size */
 }
 
 form {
@@ -19,21 +20,24 @@ form {
   gap: 15px;
 }
 
-.image-dropzone {
-  border: 2px dashed #3b3030;
-  border-radius: 10px;
-  padding: 20px;
+.image-upload {
   text-align: center;
+}
+
+.image-upload label {
+  display: block;
+  background-color: #3b3030;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
   cursor: pointer;
+  width: 100%; /* Full-width button */
+  max-width: 500px;
+  margin: 0 auto;
 }
 
-.image-dropzone img {
-  max-width: 100%;
-  border-radius: 10px;
-}
-
-.image-dropzone.dragging {
-  background-color: rgba(59, 48, 48, 0.1);
+.image-upload input[type="file"] {
+  display: none; /* Hide the default input */
 }
 
 input,
@@ -45,19 +49,10 @@ button {
   border-radius: 5px;
 }
 
-input:focus,
-textarea:focus {
-  outline: none;
-  border-color: #3b3030;
-  box-shadow: 0 0 5px rgba(59, 48, 48, 0.3);
-}
-
 button {
   background-color: #3b3030;
   color: white;
-  border: none;
   cursor: pointer;
-  transition: background-color 0.3s;
 }
 
 button:hover {

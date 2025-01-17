@@ -191,7 +191,7 @@ const ProductTable = () => {
           sx={{ marginRight: 2 }}
         />
       </Box>
-      <TableContainer component={Paper} sx={{ backgroundColor: "#fff0d1" }}>
+      <TableContainer component={Paper} sx={{ backgroundColor: "#fff" }}>
         <Table>
           <TableHead>
             <TableRow>

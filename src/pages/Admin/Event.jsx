@@ -4,7 +4,6 @@ import "./AdminPanel.css";
 
 const Event = () => {
   const [image, setImage] = useState(null);
-  const [dragging, setDragging] = useState(false);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -29,27 +28,12 @@ const Event = () => {
     });
   };
 
-  const handleImageDrop = async (e) => {
-    e.preventDefault();
-    setDragging(false);
-    const file = e.dataTransfer.files[0];
-    if (file) {
-      try {
-        await handleImageValidation(file);
-        setImage(file); // Store the file directly
-        setError(null);
-      } catch (err) {
-        setError(err.message);
-      }
-    }
-  };
-
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     if (file) {
       try {
         await handleImageValidation(file);
-        setImage(file); // Store the file directly
+        setImage(file);
         setError(null);
       } catch (err) {
         setError(err.message);
@@ -107,28 +91,15 @@ const Event = () => {
     <div className="admin-panel">
       <h1>Event</h1>
       <form onSubmit={handleSubmit}>
-        <div
-          className={`image-dropzone ${dragging ? "dragging" : ""}`}
-          onClick={() => document.getElementById("file-input").click()}
-          onDragOver={(e) => {
-            e.preventDefault();
-            setDragging(true);
-          }}
-          onDragLeave={() => setDragging(false)}
-          onDrop={handleImageDrop}
-        >
-          {image ? (
-            <p>{image.name}</p>
-          ) : (
-            <p>Drag & Drop an image here or click to upload</p>
-          )}
+        <div className="image-upload">
+          <label htmlFor="file-input">Click to upload an image</label>
           <input
             type="file"
             accept="image/*"
-            onChange={handleImageUpload}
-            style={{ display: "none" }}
             id="file-input"
+            onChange={handleImageUpload}
           />
+          {image && <p>{image.name}</p>}
         </div>
         {error && <p className="error">{error}</p>}
         <input
@@ -144,21 +115,13 @@ const Event = () => {
           onChange={(e) => setDescription(e.target.value)}
           required
         ></textarea>
-
-        <div
-          style={{
-            position: "relative",
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
+        <div style={{ position: "relative" }}>
           <span
             style={{
               position: "absolute",
               left: "10px",
-              fontSize: "1rem",
+              top: "10px",
               color: "#333",
-              pointerEvents: "none",
             }}
           >
             ₹
@@ -167,22 +130,12 @@ const Event = () => {
             type="number"
             placeholder="Enter price"
             value={price}
-            onChange={(e) => {
-              const value = parseFloat(e.target.value);
-              if (value >= 0 || e.target.value === "") {
-                setPrice(e.target.value);
-              }
-            }}
+            onChange={(e) => setPrice(e.target.value)}
+            style={{ paddingLeft: "25px", width: "100%" }}
             min="0"
             required
-            style={{
-              paddingLeft: "25px",
-              width: "100%",
-              boxSizing: "border-box",
-            }}
           />
         </div>
-
         <button type="submit" disabled={loading}>
           {loading ? "Submitting..." : "Submit"}
         </button>

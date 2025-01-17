@@ -44,58 +44,58 @@ const Sidebar = () => {
     >
       <List sx={{ width: "100%", padding: 0 }}>
         {/* Trade Upload Button */}
-        <ListItem
-          sx={{
-            justifyContent: "center",
-            "&:hover": {
-              backgroundColor: "#4a3a3a",
-            },
-          }}
-          onClick={() => setOpenMenu(null)} // Close dropdown
+        <NavLink
+          to="/admin/trade"
+          style={({ isActive }) => ({
+            textDecoration: "none",
+          })}
         >
-          <NavLink
-            to="/admin/trade"
-            style={({ isActive }) => ({
-              textDecoration: "none",
-              color: isActive ? "#fff0d1" : "#e0e0e0",
-              fontWeight: isActive ? "bold" : "normal",
-              textAlign: "center",
-              width: "100%",
-              padding: "10px 0",
-              display: "block",
-              textAlign: "center",
-            })}
+          <ListItem
+            button
+            sx={{
+              justifyContent: "center",
+              "&:hover": {
+                backgroundColor: "#4a3a3a",
+              },
+              color: "#fff0d1",
+            }}
           >
-            <ListItemText primary="Trade Upload" />
-          </NavLink>
-        </ListItem>
+            <ListItemText
+              primary="Trade Upload"
+              sx={{
+                textAlign: "center",
+                fontWeight: "bold",
+              }}
+            />
+          </ListItem>
+        </NavLink>
 
         {/* Events Upload Button */}
-        <ListItem
-          sx={{
-            justifyContent: "center",
-            "&:hover": {
-              backgroundColor: "#4a3a3a",
-            },
-          }}
-          onClick={() => setOpenMenu(null)} // Close dropdown
+        <NavLink
+          to="/admin/event"
+          style={({ isActive }) => ({
+            textDecoration: "none",
+          })}
         >
-          <NavLink
-            to="/admin/event"
-            style={({ isActive }) => ({
-              textDecoration: "none",
-              color: isActive ? "#fff0d1" : "#e0e0e0",
-              fontWeight: isActive ? "bold" : "normal",
-              textAlign: "center",
-              width: "100%",
-              padding: "10px 0",
-              display: "block",
-              textAlign: "center",
-            })}
+          <ListItem
+            button
+            sx={{
+              justifyContent: "center",
+              "&:hover": {
+                backgroundColor: "#4a3a3a",
+              },
+              color: "#fff0d1",
+            }}
           >
-            <ListItemText primary="Events Upload" />
-          </NavLink>
-        </ListItem>
+            <ListItemText
+              primary="Events Upload"
+              sx={{
+                textAlign: "center",
+                fontWeight: "bold",
+              }}
+            />
+          </ListItem>
+        </NavLink>
 
         {/* All Items Dropdown */}
         <ListItemButton
@@ -124,56 +124,60 @@ const Sidebar = () => {
               backgroundColor: "#4a3a3a",
             }}
           >
-            <ListItem
-              sx={{
-                pl: 4,
-                "&:hover": {
-                  backgroundColor: "#5a4a4a",
-                },
-                display: "flex",
-                justifyContent: "center",
-              }}
-              onClick={() => setOpenMenu(null)} // Close dropdown on click
+            <NavLink
+              to="/admin/producttable/trade"
+              style={({ isActive }) => ({
+                textDecoration: "none",
+              })}
             >
-              <NavLink
-                to="/admin/producttable/trade"
-                style={({ isActive }) => ({
-                  textDecoration: "none",
-                  color: isActive ? "#fff0d1" : "#e0e0e0",
-                  fontWeight: isActive ? "bold" : "normal",
-                  padding: "5px 0",
-                  display: "block",
-                  textAlign: "center",
-                })}
+              <ListItem
+                button
+                sx={{
+                  pl: 4,
+                  "&:hover": {
+                    backgroundColor: "#5a4a4a",
+                  },
+                  display: "flex",
+                  justifyContent: "center",
+                  color: "#fff0d1",
+                }}
               >
-                <ListItemText primary="Trade" />
-              </NavLink>
-            </ListItem>
-            <ListItem
-              sx={{
-                pl: 4,
-                "&:hover": {
-                  backgroundColor: "#5a4a4a",
-                },
-                display: "flex",
-                justifyContent: "center",
-              }}
-              onClick={() => setOpenMenu(null)} // Close dropdown on click
+                <ListItemText
+                  primary="Trade"
+                  sx={{
+                    textAlign: "center",
+                    fontWeight: "bold",
+                  }}
+                />
+              </ListItem>
+            </NavLink>
+            <NavLink
+              to="/admin/producttable/events"
+              style={({ isActive }) => ({
+                textDecoration: "none",
+              })}
             >
-              <NavLink
-                to="/admin/producttable/events"
-                style={({ isActive }) => ({
-                  textDecoration: "none",
-                  color: isActive ? "#fff0d1" : "#e0e0e0",
-                  fontWeight: isActive ? "bold" : "normal",
-                  padding: "5px 0",
-                  display: "block",
-                  textAlign: "center",
-                })}
+              <ListItem
+                button
+                sx={{
+                  pl: 4,
+                  "&:hover": {
+                    backgroundColor: "#5a4a4a",
+                  },
+                  display: "flex",
+                  justifyContent: "center",
+                  color: "#fff0d1",
+                }}
               >
-                <ListItemText primary="Events" />
-              </NavLink>
-            </ListItem>
+                <ListItemText
+                  primary="Events"
+                  sx={{
+                    textAlign: "center",
+                    fontWeight: "bold",
+                  }}
+                />
+              </ListItem>
+            </NavLink>
           </List>
         </Collapse>
       </List>
@@ -184,8 +188,8 @@ const Sidebar = () => {
         color="error"
         onClick={handleLogout}
         sx={{
-          width: "60%", // Reduce the width to 80%
-          margin: "0 auto", // Center the button horizontally
+          width: "60%",
+          margin: "0 auto",
           marginBottom: 5,
           backgroundColor: "#fff0d1",
           color: "#3b3030",

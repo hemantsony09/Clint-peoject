@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Search, ChevronLeft, ChevronRight, IndianRupee } from "lucide-react";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 const ITEMS_PER_PAGE = 10;
-const MIN_PRICE = 0;
-const MAX_PRICE = 2000;
 
 const Gallery = () => {
   const [items, setItems] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [priceRange, setPriceRange] = useState({
-    min: MIN_PRICE,
-    max: MAX_PRICE,
+    min: "",
+    max: "",
   });
   const [sortOrder, setSortOrder] = useState("");
   const [loading, setLoading] = useState(true);
@@ -41,12 +40,17 @@ const Gallery = () => {
   }, []);
 
   const filteredItems = items
-    .filter(
-      (item) =>
+    .filter((item) => {
+      const minPrice = priceRange.min === "" ? 0 : Number(priceRange.min);
+      const maxPrice =
+        priceRange.max === "" ? Infinity : Number(priceRange.max);
+
+      return (
         item.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-        item.price >= priceRange.min &&
-        item.price <= priceRange.max
-    )
+        item.price >= minPrice &&
+        item.price <= maxPrice
+      );
+    })
     .sort((a, b) => {
       if (sortOrder === "low-to-high") return a.price - b.price;
       if (sortOrder === "high-to-low") return b.price - a.price;
@@ -69,16 +73,14 @@ const Gallery = () => {
   };
 
   const handlePriceChange = (type, value) => {
-    const numValue =
-      value === "" ? (type === "min" ? MIN_PRICE : MAX_PRICE) : Number(value);
+    const numValue = value === "" ? "" : Math.max(0, Number(value));
 
-    if (type === "min" && numValue <= priceRange.max) {
+    if (type === "min") {
       setPriceRange((prev) => ({ ...prev, min: numValue }));
-      setCurrentPage(1);
-    } else if (type === "max" && numValue >= priceRange.min) {
+    } else if (type === "max") {
       setPriceRange((prev) => ({ ...prev, max: numValue }));
-      setCurrentPage(1);
     }
+    setCurrentPage(1);
   };
 
   if (loading)
@@ -102,102 +104,110 @@ const Gallery = () => {
       <Navbar />
       <div className="min-h-screen bg-[#fff0d1] py-12 pt-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
+          <div className="text-center py-6">
+            <h1 className="text-4xl font-bold text-[#3b3030] bg-gradient-to-r from-[#fff0d1] to-[#f8d7a5] px-6 py-3 inline-block rounded-lg transform transition-transform duration-300 ease-in-out hover:scale-105">
+              Trade
+            </h1>
+          </div>
           {/* Filters */}
-<div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-8">
-  {/* Search Bar */}
-  <div className="relative flex-1">
-    <input
-      type="text"
-      placeholder="Search items..."
-      value={searchTerm}
-      onChange={(e) => {
-        setSearchTerm(e.target.value);
-        setCurrentPage(1);
-      }}
-      className="w-full border-none h-12 pl-12 pr-4 rounded-lg bg-white shadow-md focus:outline-none focus:ring-2 focus:ring-[#3b3030] transition-all"
-    />
-    <Search
-      className="absolute left-4 top-3.5 text-[#3b3030]"
-      size={20}
-    />
-  </div>
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-8">
+            {/* Search Bar */}
+            <div className="relative flex-1">
+              <input
+                type="text"
+                placeholder="Search items..."
+                value={searchTerm}
+                onChange={(e) => {
+                  setSearchTerm(e.target.value);
+                  setCurrentPage(1);
+                }}
+                className="w-full border-none h-12 pl-12 pr-4 rounded-lg bg-white shadow-md focus:outline-none focus:ring-2 focus:ring-[#3b3030] transition-all"
+              />
+              <Search
+                className="absolute left-4 top-3.5 text-[#3b3030]"
+                size={20}
+              />
+            </div>
 
-  {/* Price Range Filter */}
-  <div className="flex-1 bg-white shadow-md rounded-lg flex items-center h-12 px-4">
-    <span className="text-[#3b3030] font-medium">Price Range:</span>
-    <div className="flex items-center gap-3 ml-4">
-      <div className="flex items-center gap-1">
-        <IndianRupee className="text-[#3b3030]" size={20} />
-        <input
-          type="number"
-          min={MIN_PRICE}
-          max={priceRange.max}
-          value={priceRange.min}
-          onChange={(e) => handlePriceChange("min", e.target.value)}
-          placeholder="Min"
-          className="w-20 px-3 py-2 bg-white border-none shadow-inner rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3b3030] transition-all h-8"
-        />
-      </div>
-      <span className="text-[#3b3030] font-medium">to</span>
-      <div className="flex items-center gap-1">
-        <IndianRupee className="text-[#3b3030]" size={20} />
-        <input
-          type="number"
-          min={priceRange.min}
-          max={MAX_PRICE}
-          value={priceRange.max}
-          onChange={(e) => handlePriceChange("max", e.target.value)}
-          placeholder="Max"
-          className="w-20 px-3 py-2 bg-white border-none shadow-inner rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3b3030] transition-all h-8"
-        />
-      </div>
-    </div>
-  </div>
-
-  {/* Sort Dropdown */}
-  <div className="flex-1">
-    <select
-      value={sortOrder}
-      onChange={(e) => {
-        setSortOrder(e.target.value);
-        setCurrentPage(1);
-      }}
-      className="w-full px-4 py-3 h-12 bg-white shadow-md border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3b3030] transition-all"
-    >
-      <option value="">Sort By</option>
-      <option value="low-to-high">Price: Low to High</option>
-      <option value="high-to-low">Price: High to Low</option>
-    </select>
-  </div>
-</div>
-
-
-          {/* Gallery Items */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {paginatedItems.map((item) => (
-              <div
-                key={item.id}
-                className="bg-white rounded-lg shadow-lg overflow-hidden transition-transform hover:scale-[1.02]"
-              >
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  className="w-full h-64 object-cover"
-                />
-                <div className="p-6">
-                  <div className="flex justify-between items-start mb-2">
-                    <h3 className="text-xl font-semibold text-[#3b3030]">
-                      {item.name}
-                    </h3>
-                    <span className="text-lg font-bold text-[#3b3030]">
-                      ₹{item.price.toFixed(2)}
-                    </span>
-                  </div>
-                  <p className="text-gray-600">{item.description}</p>
+            {/* Price Range Filter */}
+            <div className="flex-1 bg-white shadow-md rounded-lg flex items-center h-12 px-4">
+              <span className="text-[#3b3030] font-medium">Price Range:</span>
+              <div className="flex items-center gap-3 ml-4">
+                <div className="flex items-center gap-1">
+                  <IndianRupee className="text-[#3b3030]" size={20} />
+                  <input
+                    type="number"
+                    min="0"
+                    value={priceRange.min}
+                    onChange={(e) => handlePriceChange("min", e.target.value)}
+                    placeholder="Min"
+                    className="w-20 px-3 py-2 bg-white border-none shadow-inner rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3b3030] transition-all h-8"
+                  />
+                </div>
+                <span className="text-[#3b3030] font-medium">to</span>
+                <div className="flex items-center gap-1">
+                  <IndianRupee className="text-[#3b3030]" size={20} />
+                  <input
+                    type="number"
+                    min="0"
+                    value={priceRange.max}
+                    onChange={(e) => handlePriceChange("max", e.target.value)}
+                    placeholder="Max"
+                    className="w-20 px-3 py-2 bg-white border-none shadow-inner rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3b3030] transition-all h-8"
+                  />
                 </div>
               </div>
-            ))}
+            </div>
+
+            {/* Sort Dropdown */}
+            <div className="flex-1">
+              <select
+                value={sortOrder}
+                onChange={(e) => {
+                  setSortOrder(e.target.value);
+                  setCurrentPage(1);
+                }}
+                className="w-full px-4 py-3 h-12 bg-white shadow-md border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3b3030] transition-all"
+              >
+                <option value="">Sort By</option>
+                <option value="low-to-high">Price: Low to High</option>
+                <option value="high-to-low">Price: High to Low</option>
+              </select>
+            </div>
           </div>
+
+          {/* Gallery Items */}
+          {paginatedItems.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {paginatedItems.map((item) => (
+                <div
+                  key={item.id}
+                  className="bg-white rounded-lg shadow-lg overflow-hidden transition-transform hover:scale-[1.02]"
+                >
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="w-full h-64 object-cover"
+                  />
+                  <div className="p-6">
+                    <div className="flex justify-between items-start mb-2">
+                      <h3 className="text-xl font-semibold text-[#3b3030]">
+                        {item.name}
+                      </h3>
+                      <span className="text-lg font-bold text-[#3b3030]">
+                        ₹{item.price.toFixed(2)}
+                      </span>
+                    </div>
+                    <p className="text-gray-600">{item.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-8 text-[#3b3030]">
+              No items found.
+            </div>
+          )}
 
           {/* Pagination */}
           {filteredItems.length > 0 && (
@@ -223,17 +233,11 @@ const Gallery = () => {
               </button>
             </div>
           )}
-
-          {filteredItems.length === 0 && (
-            <div className="text-center py-8 text-[#3b3030]">
-              No items found matching your search criteria.
-            </div>
-          )}
         </div>
       </div>
+      <Footer />
     </>
   );
 };
 
 export default Gallery;
-
